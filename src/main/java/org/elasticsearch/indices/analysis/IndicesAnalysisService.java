@@ -510,6 +510,18 @@ public class IndicesAnalysisService extends AbstractComponent {
             }
         }));
 
+        tokenFilterFactories.put("prefixed_shingle", new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
+            @Override
+            public String name() {
+                return "prefixed_shingle";
+            }
+
+            @Override
+            public TokenStream create(TokenStream tokenStream) {
+                return new PrefixedShingleFilter(tokenStream, ShingleFilter.DEFAULT_MAX_SHINGLE_SIZE);
+            }
+        }));
+
         tokenFilterFactories.put("unique", new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
             @Override
             public String name() {
